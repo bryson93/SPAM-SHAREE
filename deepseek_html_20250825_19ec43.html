@@ -1,0 +1,1021 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Spam Share | Cyber Interface</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Rajdhani', sans-serif;
+        }
+        
+        body {
+            background-color: #0a0a16;
+            color: #e0e0ff;
+            min-height: 100vh;
+            overflow-x: hidden;
+            background-image: 
+                radial-gradient(circle at 10% 20%, rgba(28, 12, 114, 0.3) 0%, transparent 30%),
+                radial-gradient(circle at 90% 80%, rgba(86, 15, 173, 0.3) 0%, transparent 30%);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            perspective: 1000px;
+            transform-style: preserve-3d;
+        }
+        
+        /* 3D Particles Background */
+        #particles-js {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            z-index: -1;
+        }
+        
+        .app-container {
+            width: 100%;
+            max-width: 800px;
+            background: rgba(10, 10, 30, 0.8);
+            border-radius: 15px;
+            border: 1px solid rgba(102, 51, 255, 0.3);
+            box-shadow: 0 0 30px rgba(102, 51, 255, 0.2);
+            overflow: hidden;
+            transform-style: preserve-3d;
+            perspective: 1000px;
+            animation: floatContainer 6s ease-in-out infinite;
+            position: relative;
+        }
+        
+        @keyframes floatContainer {
+            0%, 100% { transform: translateY(0) rotateX(1deg); }
+            50% { transform: translateY(-10px) rotateX(-1deg); }
+        }
+        
+        header {
+            padding: 20px;
+            text-align: center;
+            background: linear-gradient(90deg, rgba(255,0,204,0.1) 0%, rgba(51,0,255,0.1) 100%);
+            border-bottom: 1px solid rgba(102, 51, 255, 0.3);
+            transform: translateZ(10px);
+        }
+        
+        .logo {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 5px;
+            color: transparent;
+            background: linear-gradient(45deg, #ff00cc, #3300ff);
+            -webkit-background-clip: text;
+            background-clip: text;
+            text-shadow: 0 0 15px rgba(255, 0, 204, 0.5);
+            transform: translateZ(20px);
+            animation: glow 2s ease-in-out infinite alternate;
+        }
+        
+        @keyframes glow {
+            from { text-shadow: 0 0 15px rgba(255, 0, 204, 0.5); }
+            to { text-shadow: 0 0 25px rgba(255, 0, 204, 0.8), 0 0 35px rgba(255, 0, 204, 0.6); }
+        }
+        
+        .tagline {
+            font-size: 1rem;
+            color: #a0a0ff;
+            margin-bottom: 10px;
+            transform: translateZ(15px);
+        }
+        
+        .main-content {
+            padding: 20px;
+        }
+        
+        .card {
+            margin-bottom: 20px;
+            background: rgba(15, 15, 35, 0.7);
+            border: 1px solid rgba(102, 51, 255, 0.3);
+            border-radius: 10px;
+            padding: 20px;
+            backdrop-filter: blur(5px);
+            box-shadow: 0 0 15px rgba(102, 51, 255, 0.2);
+            transform-style: preserve-3d;
+            transition: transform 0.5s ease, box-shadow 0.5s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(
+                45deg,
+                transparent, 
+                rgba(255, 255, 255, 0.1), 
+                transparent
+            );
+            transform: rotate(45deg);
+            transition: all 0.5s ease;
+            animation: shineEffect 3s infinite;
+        }
+        
+        @keyframes shineEffect {
+            0% {
+                transform: rotate(45deg) translateX(-100%);
+            }
+            100% {
+                transform: rotate(45deg) translateX(100%);
+            }
+        }
+        
+        .card:hover {
+            transform: translateZ(10px) rotateX(2deg) rotateY(2deg);
+            box-shadow: 0 0 30px rgba(102, 51, 255, 0.4);
+        }
+        
+        .card h2 {
+            font-size: 1.3rem;
+            margin-bottom: 15px;
+            color: #ff00cc;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transform: translateZ(5px);
+        }
+        
+        .input-group {
+            margin-bottom: 15px;
+            transform: translateZ(5px);
+        }
+        
+        .input-group label {
+            display: block;
+            margin-bottom: 5px;
+            color: #a0a0ff;
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        
+        .input-group input {
+            width: 100%;
+            padding: 12px;
+            background: rgba(20, 20, 40, 0.7);
+            border: 1px solid rgba(102, 51, 255, 0.5);
+            border-radius: 8px;
+            color: #e0e0ff;
+            font-family: inherit;
+            transition: all 0.3s ease;
+            transform: translateZ(0);
+        }
+        
+        .input-group input:focus {
+            outline: none;
+            border-color: #ff00cc;
+            box-shadow: 极 0 10px rgba(255, 0, 204, 0.5);
+            transform: translateZ(5px);
+        }
+        
+        .input-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+        }
+        
+        @media (max-width: 600px) {
+            .input-row {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        .submit-btn {
+            width: 100%;
+            padding: 14px;
+            background: linear-gradient(45deg, #ff00cc, #3300ff);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.3s ease;
+            transform: translateZ(0);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .submit-btn::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(
+                45deg,
+                transparent, 
+                rgba(255, 255, 255, 0.2), 
+                transparent
+            );
+            transform: rotate(45deg);
+            transition: all 0.5s ease;
+        }
+        
+        .submit-btn:hover {
+            transform: translateZ(10px);
+            box-shadow: 0 0 25px rgba(255, 0, 204, 0.7);
+        }
+        
+        .submit-btn:hover::before {
+            animation: shine 1.5s infinite;
+        }
+        
+        .action-buttons {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            margin-top: 15px;
+        }
+        
+        .action-btn {
+            padding: 10px;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 5px;
+            transition: all 0.3s ease;
+            transform: translateZ(0);
+        }
+        
+        .stop-btn {
+            background: linear-gradient(45deg, #ff005e, #990033);
+            color: white;
+        }
+        
+        .view-btn {
+            background: linear-gradient(45deg, #00ff9d, #009966);
+            color: white;
+        }
+        
+        .action-btn:hover {
+            transform: translateZ(8px);
+            box-shadow: 0 0 15px rgba(255, 255, 255, 0.3);
+        }
+        
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+            backdrop-filter: blur(5px);
+        }
+        
+        .modal-content {
+            background: rgba(15, 15, 35, 0.9);
+            border: 1px solid rgba(102, 51, 255, 0.5);
+            border-radius: 10px;
+            padding: 20px;
+            width: 90%;
+            max-width: 500px;
+            max-height: 80vh;
+            overflow-y: auto;
+            transform-style: preserve-3d;
+            animation: modalAppear 0.5s forwards;
+            transform: rotateX(10deg) translateY(50px);
+            opacity: 0;
+        }
+        
+        @keyframes modalAppear {
+            to {
+                transform: rotateX(0) translateY(0);
+                opacity: 1;
+            }
+        }
+        
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+            border-bottom: 1px solid rgba(102, 51, 255, 极.3);
+            padding-bottom: 10px;
+        }
+        
+        .close-btn {
+            background: none;
+            border: none;
+            color: #ff005e;
+            font-size: 1.5rem;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+        
+        .close-btn:hover {
+            transform: rotate(90deg) scale(1.1);
+        }
+        
+        .result-message {
+            padding: 10px;
+            border-radius: 8px;
+            margin-top: 15px;
+            display: none;
+            font-size: 0.9rem;
+            animation: fadeIn 0.3s ease;
+            transform: translateZ(5px);
+        }
+        
+        .success {
+            background: rgba(0, 255, 157, 0.1);
+            border: 1px solid #00ff9d;
+            color: #00极9d;
+        }
+        
+        .error {
+            background: rgba(255, 0, 94, 0.1);
+            border: 1px solid #ff005e;
+            color: #ff005e;
+        }
+        
+        .process-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px;
+            background: rgba(20, 20, 40, 0.7);
+            border-radius: 8px;
+            margin-bottom: 10px;
+            border: 1px solid rgba(102, 51, 255, 0.3);
+            transform: translateZ(0);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            animation: slideIn 0.5s forwards;
+            opacity: 0;
+        }
+        
+        @keyframes slideIn {
+            from {
+                transform: translateX(-20px);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+        
+        .process-item:hover {
+            transform: translateZ(8px);
+            border-color: rgba(102, 51, 255, 0.6);
+            box-shadow: 0 5px 15px rgba(102, 51, 255, 0.2);
+        }
+        
+        .process-info {
+            flex: 1;
+        }
+        
+        .process-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 5px;
+        }
+        
+极        .process-id {
+            font-weight: 600;
+            color: #00ff9d;
+            font-size: 0.9rem;
+        }
+        
+        .process-status {
+            font-size: 0.7rem;
+            padding: 3px 6px;
+            border-radius: 8px;
+            background: rgba(0, 255, 157, 0.1);
+            color: #00ff9d;
+        }
+        
+        .process-url {
+            font-size: 0.8rem;
+            color: #a0a0ff;
+            margin-bottom: 8px;
+            word-break: break-all;
+        }
+        
+        .process-progress {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .progress-bar {
+            flex: 1;
+            height: 4px;
+            background: rgba(160, 160, 255, 0.1);
+            border-radius: 2px;
+            overflow: hidden;
+            transform: translate极(0);
+        }
+        
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #ff00cc, #3300ff);
+            border-radius: 2px;
+            transition: width 0.5s ease;
+            box-shadow: 0 0 5px rgba(255, 0, 204, 0.5);
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.8; }
+        }
+        
+        .progress-text {
+            font-size: 0.7rem;
+            color: #a0a0ff;
+        }
+        
+        .process-actions {
+            display: flex;
+            gap: 5px;
+        }
+        
+        .copy-btn {
+            background: rgba(102, 51, 255, 0.3);
+            border: 1px solid rgba(102, 51, 255, 0.5);
+            color: #a0a0ff;
+            border-radius: 4px;
+            padding: 4px 8px;
+            cursor: pointer;
+            font-size: 0.7rem;
+            transition: all 0.3s ease;
+            transform: translateZ(0);
+        }
+        
+        .view-post-btn {
+            background: rgba(0, 255, 157, 0.3);
+            border: 1px solid rgba(0, 255, 157, 0.5);
+            color: #a0a0ff;
+            border-radius: 4px;
+            padding: 4px 8px;
+            cursor: pointer;
+            font-size: 0.7rem;
+            transition: all 0.3s ease;
+            transform: translateZ(0);
+        }
+        
+        .copy-btn:hover {
+            background: rgba(102, 51, 255, 0.5);
+            color: #e0e0ff;
+            transform: translateZ(5px) scale(1.1);
+        }
+        
+        .view-post-btn:hover {
+            background: rgba(0, 255, 157, 0.5);
+            color: #e0e0ff;
+            transform: translateZ(5px) scale(1.1);
+        }
+        
+        .empty-state {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            text-align: center;
+            color: #a0a0ff;
+            transform: translateZ(5px);
+        }
+        
+        .empty-state i {
+            font-size: 2rem;
+            margin-bottom: 10px;
+            color: #3300ff;
+            animation: bounce 2s infinite;
+        }
+        
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(5px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        @keyframes shine {
+            0% {
+                transform: rotate(45deg) translateX(-100%);
+            }
+            100% {
+                transform: rotate(45deg) translateX(100%);
+            }
+        }
+        
+        .toast {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(0, 255, 157, 0.9);
+            color: #003320;
+            padding: 10极 20px;
+            border-radius: 5px;
+            z-index: 1000;
+            opacity: 0;
+            transition: opacity 0.3s;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+        
+        .toast.show {
+            opacity: 1;
+            animation: toastSlideIn 0.3s forwards;
+        }
+        
+        @极eyframes toastSlideIn {
+            from {
+                transform: translateX(-50%) translateY(20px);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(-50%) translateY(0);
+                opacity: 1;
+            }
+        }
+        
+        footer {
+            padding: 15px;
+            text-align: center;
+            border-top: 1px solid rgba(102, 51, 255, 0.3);
+            font-size: 0.8rem;
+            color: #a0a0ff;
+            transform: translateZ(5px);
+        }
+        
+        /* 3D Flip Animation for Cards */
+        .card-flip {
+            transform-style: preserve-3d;
+            transition: transform 0.8s;
+        }
+        
+        .card-flip:hover {
+            transform: rotateY(180deg);
+        }
+        
+        .card-front, .card-back {
+            backface-visibility: hidden;
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+        
+        .card-back {
+            transform: rotateY(180deg);
+        }
+    </style>
+</head>
+<body>
+    <div id="particles-js"></div>
+    <div class="toast" id="toast">Post ID copied to clipboard!</div>
+    
+    <div class="app-container">
+        <header>
+            <h1 class="logo">SPAM SHARE</h1>
+            <p class="tagline">Automate your Facebook sharing with advanced cyber technology</p>
+        </header>
+        
+        <div class极="main-content">
+            <section class="card">
+                <h2><i class="fas fa-cog"></i> Configuration</h2>
+                <form onsubmit="submitForm(event)" class="form-container">
+                    <div class="input-group">
+                        <label for="cookies">
+                            <i class="fas fa-cookie-bite"></i> APPSTATE:
+                        </label>
+                        <input type="text" id="cookies" name="cookie" placeholder="Paste your Facebook cookie here">
+                    </div>
+                    
+                    <div class="input-group">
+                        <label for="urls">
+                            <i class="fas fa-link"></i> LINK:
+                        </label>
+                        <input type="text" id="urls" name="url" placeholder="Enter the URL you want to share">
+                    </div>
+                    
+                    <div class="input-row">
+                        <div class="input-group">
+                            <label for="amounts">
+                                <i class="fas fa-bullseye"></i> LIMIT:
+                            </label>
+                            <input type="number" id="amounts" name="amount" placeholder="Number of shares" min="1">
+                        </div>
+                        
+                        <div class="input-group">
+                            <label for="intervals">
+                                <i class="fas fa-clock"></i> DELAY (ms):
+                            </label>
+                            <input type="number" id="intervals" name="interval" placeholder="Milliseconds" min="0" pattern="[0-9]*">
+                        </div>
+                    </div>
+                    
+                    <button type="submit" id="submit-button" class="submit-btn">
+                        <span class="btn-text">Start Sharing</span>
+                        <i class="fas fa-paper-plane"></i>
+                    </button>
+                    
+                    <div class="action-buttons">
+                        <button type="button" class="action-btn stop-btn" onclick="openStopModal()">
+                            <i class="fas fa-stop-circle"></i> Stop Share
+                        </button>
+                        <button type="button" class="action-btn view-btn" onclick="openViewModal()">
+                            <i class="fas fa-eye"></i> View Post
+                        </button>
+                    </div>
+                    
+                    <div id="result" class="result-message"></div>
+                </form>
+            </section>
+            
+            <section class="card">
+                <h2><i class="fas fa-sync fa-spin"></i> Processing</h2>
+                <div id="processing" class="process-list"></div>
+                <div class="empty-state" id="empty-state">
+                    <i class="fas fa-inbox"></i>
+                    <p>No active processes</p>
+                </div>
+            </section>
+        </div>
+        
+        <footer>
+            <p>© 2023 Spam Share | Use responsibly</p>
+        </footer>
+    </div>
+
+    <!-- Stop Share Modal -->
+    <div id="stopModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3><极 class="fas fa-stop-circle"></i> Stop Active Share</h3>
+                <button class="close-btn" onclick="closeModal('stopModal')">&times;</button>
+            </div>
+            <div class="input-group">
+                <label for="accessKey">
+                    <i class="fas fa-key"></i> Access Key:
+                </label>
+                <input type="password" id="accessKey" placeholder="Enter access key">
+            </div>
+            <div class="input-group">
+                <label for="postId">
+                    <i class="fas fa-hashtag"></i> Post ID:
+                </label>
+                <input type="text" id="postId" placeholder="Enter post ID to stop">
+            </div>
+            <button class="submit-btn" onclick="stopShare()">
+                <i class="fas fa-ban"></i> Stop Share
+            </button>
+            <div id="stopResult" class="result-message"></div>
+        </div>
+    </div>
+
+    <!-- View Post Modal -->
+    <div id="viewModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3><i class="fas fa-eye"></i> View Post Content</h3>
+                <button class="close-btn" onclick="closeModal('viewModal')">&times;</button>
+            </div>
+            <div class="input-group">
+                <label for="postIdView">
+                    <i class="fas fa-hashtag"></i> Post ID:
+                </label>
+                <input type="text" id="postIdView" placeholder="Enter Post ID to view">
+            </div>
+            <button class="submit-btn" onclick="viewPostById()">
+                <i class="fas fa-search"></i> View Content
+            </button>
+            <div id="viewResult" class="result-message"></div>
+            <div id="postContent" style="margin-top: 15px; padding: 10px; background: rgba(20,20,40,0.5); border-radius: 5px; display: none;">
+                <h4>Post Content:</h4>
+                <p id="contentText"></p>
+                <div id="postUrl" style="margin-top: 10px; font-size: 0.9rem; color: #a0a0ff;"></div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+    <script>
+        // Initialize particles background
+        document.addEventListener('DOMContentLoaded', function() {
+            particlesJS('particles-js', {
+                particles: {
+                    number: { value: 80, density: { enable: true, value_area: 800 } },
+                    color: { value: "#a64dff" },
+                    shape: { type: "circle" },
+                    opacity: { value: 0.5, random: true },
+                    size: { value: 3, random: true },
+                    line_linked: {
+                        enable: true,
+                        distance: 150,
+                        color: "#6633ff",
+                        opacity: 0.4,
+                        width: 1
+                    },
+                    move: {
+                        enable: true,
+                        speed: 2,
+                        direction: "none",
+                        random: true,
+                        out_mode: "out",
+                        bounce: false
+                    }
+                },
+                interactivity: {
+                    detect_on: "canvas",
+                    events: {
+                        onhover: { enable: true, mode: "repulse" },
+                        onclick: { enable: true, mode: "push" },
+                        resize: true
+                    }
+                },
+                retina_detect: true
+            });
+            
+            // Start polling for active processes
+            setInterval(fetchActiveProcesses, 2000);
+        });
+        
+        // Function to submit the form
+        function submitForm(event) {
+            event.preventDefault();
+            
+            const cookie = document.getElementById('cookies').value;
+            const url = document.getElementById('urls').value;
+            const amount = document.getElementById('amounts').value;
+            const interval = document.getElementById('intervals').value;
+            
+            const resultDiv = document.getElementById('result');
+            resultDiv.style.display = 'none';
+            
+            if (!cookie || !url || !amount || !interval) {
+                showResult('Please fill in all fields', 'error');
+                return;
+            }
+            
+            const submitButton = document.getElementById('submit-button');
+            submitButton.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Processing...';
+            submitButton.disabled = true;
+            
+            fetch('/api/submit', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    cookie,
+                    url,
+                    amount: parseInt(amount),
+                    interval: parseInt(interval)
+                })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.status === 200) {
+                    showResult('Sharing process started successfully!', 'success');
+                    document.getElementById('cookies').value = '';
+                    document.getElementById('urls').value = '';
+                    document.getElementById('amounts').value = '';
+                    document.getElementById('intervals').value = '';
+                } else {
+                    showResult(data.error || 'An error occurred', 'error');
+                }
+            })
+            .catch(error => {
+                showResult('Network error: ' + error.message, 'error');
+            })
+            .finally(() => {
+                submitButton.innerHTML = '<span class="btn-text">Start Sharing</span> <i class="fas fa-paper-plane"></i>';
+                submitButton.disabled = false;
+            });
+        }
+        
+        // Function to fetch active processes
+        function fetchActiveProcesses() {
+            fetch('/total')
+            .then(response => response.json())
+            .then(data => {
+                const processingDiv = document.getElementById('processing');
+                const emptyState = document.getElementById('empty-state');
+                
+                if (data && data.length > 0) {
+                    emptyState.style.display = 'none';
+                    processingDiv.innerHTML = '';
+                    
+                    data.forEach((process, index) => {
+                        const progressPercent = (process.count / process.target) * 100;
+                        const processItem = document.createElement('div');
+                        processItem.className = 'process-item';
+                        processItem.style.animationDelay = `${index * 0.1}s`;
+                        
+                        processItem.innerHTML = `
+                            <div class="process-info">
+                                <div class="process-header">
+                                    <span class="process-id">ID: ${process.id}</span>
+                                    <span class="process-status">ACTIVE</span>
+                                </div>
+                                <div class="process-url">${process.url}</div>
+                                <div class="process-progress">
+                                    <div class="progress-bar">
+                                        <div class="progress-fill" style="width: ${progressPercent}%"></div>
+                                    </div>
+                                    <span class="progress-text">${process.count}/${process.target}</span>
+                                </div>
+                            </div>
+                            <div class="process-actions">
+                                <button class="copy-btn" onclick="copyToClipboard('${process.id}')">
+                                    <i class="fas fa-copy"></i>
+                                </button>
+                                <button class="view-post-btn" onclick="viewPost('${process.url}', '${process.id}')">
+                                    <i class="fas fa-eye"></i>
+                                </button>
+                            </div>
+                        `;
+                        
+                        processingDiv.appendChild(processItem);
+                    });
+                } else {
+                    processingDiv.innerHTML = '';
+                    emptyState.style.display = 'flex';
+                }
+            })
+            .catch(error => {
+                console.error('Error fetching active processes:', error);
+            });
+        }
+        
+        // Function to show result message
+        function showResult(message, type) {
+            const resultDiv = document.getElementById('result');
+            resultDiv.textContent = message;
+            resultDiv.className = `result-message ${type}`;
+            resultDiv.style.display = 'block';
+            
+            setTimeout(() => {
+                resultDiv.style.display = 'none';
+            }, 5000);
+        }
+        
+        // Function to copy text to clipboard
+        function copyToClipboard(text) {
+            navigator.clipboard.writeText(text).then(() => {
+                showToast('Post ID copied to clipboard!');
+            }).catch(err => {
+                console.error('Failed to copy: ', err);
+            });
+        }
+        
+        // Function to show toast notification
+        function showToast(message) {
+            const toast = document.getElementById('toast');
+            toast.textContent = message;
+            toast.className = 'toast show';
+            
+            setTimeout(() => {
+                toast.className = 'toast';
+            }, 3000);
+        }
+        
+        // Function to open stop modal
+        function openStopModal() {
+            document.getElementById('stopModal').style.display = 'flex';
+        }
+        
+        // Function to open view modal
+        function openViewModal() {
+            document.getElementById('viewModal').style.display = 'flex';
+        }
+        
+        // Function to close modal
+        function closeModal(modalId) {
+            document.getElementById(modalId).style.display = 'none';
+            document.getElementById(modalId === 'stopModal' ? 'stopResult' : 'viewResult').style.display = 'none';
+        }
+        
+        // Function to stop a share
+        function stopShare() {
+            const accessKey = document.getElementById('accessKey').value;
+            const postId = document.getElementById('postId').value;
+            
+            if (!accessKey || !postId) {
+                const stopResult = document.getElementById('stopResult');
+                stopResult.textContent = 'Please enter both access key and post ID';
+                stopResult.className = 'result-message error';
+                stopResult.style.display = 'block';
+                return;
+            }
+            
+            fetch('/stop-share', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    accessKey,
+                    postId
+                })
+            })
+            .then(response => response.json())
+            .then(data => {
+                const stopResult = document.getElementById('stopResult');
+                if (data.status === 200) {
+                    stopResult.textContent = data.message;
+                    stopResult.className = 'result-message success';
+                    document.getElementById('accessKey').value = '';
+                    document.getElementById('postId').value = '';
+                } else {
+                    stopResult.textContent = data.error;
+                    stopResult.className = 'result-message error';
+                }
+                stopResult.style.display = 'block';
+            })
+            .catch(error => {
+                const stopResult = document.getElementById('stopResult');
+                stopResult.textContent = 'Network error: ' + error.message;
+                stopResult.className = 'result-message error';
+                stopResult.style.display = 'block';
+            });
+        }
+        
+        // Function to view post by ID
+        function viewPostById() {
+            const postId = document.getElementById('postIdView').value;
+            
+            if (!postId) {
+                const viewResult = document.getElementById('viewResult');
+                viewResult.textContent = 'Please enter a post ID';
+                viewResult.className = 'result-message error';
+                viewResult.style.display = 'block';
+                return;
+            }
+            
+            fetch(`/view-post-by-id?postId=${postId}`)
+            .then(response => response.json())
+            .then(data => {
+                const viewResult = document.getElementById('viewResult');
+                const postContent = document.getElementById('postContent');
+                const contentText = document.getElementById('contentText');
+                const postUrl = document.getElementById('postUrl');
+                
+                if (data.status === 200) {
+                    viewResult.style.display = 'none';
+                    contentText.textContent = data.content;
+                    postUrl.innerHTML = `<strong>URL:</strong> <a href="${data.url}" target="_blank" style="color: #00ff9d;">${data.url}</a>`;
+                    postContent.style.display = 'block';
+                } else {
+                    viewResult.textContent = data.error;
+                    viewResult.className = 'result-message error';
+                    viewResult.style.display = 'block';
+                    postContent.style.display = 'none';
+                }
+            })
+            .catch(error => {
+                const viewResult = document.getElementById('viewResult');
+                viewResult.textContent = 'Network error: ' + error.message;
+                viewResult.className = 'result-message error';
+                viewResult.style.display = 'block';
+            });
+        }
+        
+        // Function to view post (immediately go to post URL)
+        function viewPost(url, postId) {
+            // Construct Facebook URL from post ID
+            const facebookUrl = `https://www.facebook.com/${postId}`;
+            // Open the post URL in a new tab
+            window.open(facebookUrl, '_blank');
+        }
+    </script>
+</body>
+</html>
